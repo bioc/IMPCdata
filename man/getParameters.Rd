@@ -21,7 +21,7 @@
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
     listParameters  <- getParameters("WTSI","MGP_001","IMPC_CBC_001")
-    for (parameterIndex in 1:length(listParameters)) {
+    for (parameterIndex in 1:min(length(listParameters), 5)) {
         print(paste(listParameters[parameterIndex],"-",
                         getName("parameter_stable_id","parameter_name",listParameters[parameterIndex])))
     }

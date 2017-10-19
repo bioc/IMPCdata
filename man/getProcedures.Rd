@@ -18,7 +18,7 @@
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
     listProcedures  <- getProcedures("WTSI","MGP_001")
-    for (procedureIndex in 1:length(listProcedures)) {
+    for (procedureIndex in 1:min(length(listProcedures), 5)) { # Print the name of 5 procedures
         print(paste(listProcedures[procedureIndex],"-",
                         getName("procedure_stable_id","procedure_name",listProcedures[procedureIndex])))
     }

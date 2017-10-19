@@ -23,5 +23,5 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    printGenes("WTSI","MGP_001","IMPC_CBC_001","IMPC_CBC_003_001")
+    printGenes("RBRC","IMPC_001","IMPC_GRS_001","IMPC_GRS_003_001", n = 5)
 }

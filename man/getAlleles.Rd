@@ -25,9 +25,8 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    listAlleles  <- getAlleles("WTSI","MGP_001","IMPC_CBC_001",
-    "IMPC_CBC_003_001")
-    for (alleleIndex in 1:length(listAlleles)) {
+    listAlleles  <- getAlleles("RBRC","IMPC_001","IMPC_GRS_001","IMPC_GRS_003_001")
+    for (alleleIndex in 1:min(length(listAlleles), 5)) {
         print(paste(listAlleles[alleleIndex],"-",
                         getName("allele_accession_id","allele_symbol",
                         listAlleles[alleleIndex])))

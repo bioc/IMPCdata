@@ -22,8 +22,8 @@
 
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    listGenes  <- getGenes("WTSI","MGP_001","IMPC_CBC_001","IMPC_CBC_003_001")
-    for (geneIndex in 1:length(listGenes)) {
+    listGenes  <- getGenes("RBRC","IMPC_001","IMPC_GRS_001","IMPC_GRS_003_001")
+    for (geneIndex in 1:min(length(listGenes), 5)) {
         print(paste(listGenes[geneIndex],"-",
                         getName("gene_accession_id","gene_symbol",listGenes[geneIndex])))
     }

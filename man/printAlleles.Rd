@@ -25,5 +25,5 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    printAlleles("WTSI","MGP_001","IMPC_CBC_001","IMPC_CBC_003_001")
+    printAlleles("RBRC","IMPC_001","IMPC_GRS_001","IMPC_GRS_003_001", n = 5)
 }

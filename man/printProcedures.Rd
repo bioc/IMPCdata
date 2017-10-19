@@ -18,5 +18,5 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    printProcedures("WTSI","MGP_001")
+    printProcedures("WTSI","MGP_001", 5)
 }

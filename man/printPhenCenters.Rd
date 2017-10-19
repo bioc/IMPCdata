@@ -18,5 +18,5 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    printPhenCenters()
+    printPhenCenters(excludeLegacyPipelines = FALSE)
 }

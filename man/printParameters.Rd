@@ -20,5 +20,5 @@
 }
 \author{Natalja Kurbatova, Jeremy Mason}
 \examples{
-    printParameters("WTSI","MGP_001","IMPC_CBC_001")
+    printParameters("WTSI","MGP_001","IMPC_CBC_001", n = 5)
 }
