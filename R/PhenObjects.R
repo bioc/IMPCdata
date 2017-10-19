@@ -17,6 +17,8 @@
 ##------------------------------------------------------------------------------
 library("rjson")
 
+IMPC_BASE_ENDPOINT <- "https://www.ebi.ac.uk/mi/impc/solr/"
+
 ##------------------------------------------------------------------------------
 ## unwrapSolrPivotResults - Function to unwrap the facet results from a solr call
 unwrapSolrPivotResults <- function(facets)
@@ -46,7 +48,7 @@ unwrapSolrPivotResults <- function(facets)
 getName <- function(fieldNameFrom,fieldNameTo,fieldValueFrom)
 {
     fieldValueFrom <- gsub(":","\\\\:",fieldValueFrom)
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=",fieldNameFrom,":",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=",fieldNameFrom,":",
                     fieldValueFrom,"&rows=0&wt=json&facet=true&facet.mincount=1&facet.limit=-1&"
                     ,"facet.field=",fieldNameTo,sep=""))
     #print(json_file)
@@ -59,7 +61,7 @@ getName <- function(fieldNameFrom,fieldNameTo,fieldValueFrom)
 ## Phenotyping center
 getPhenCenters <- function(excludeLegacyPipelines=TRUE)
 {
-    json_file <- paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=*%3A*&rows=0&",
+    json_file <- paste(IMPC_BASE_ENDPOINT,"experiment/select?q=*%3A*&rows=0&",
             "wt=json&facet=true&facet.mincount=1&facet.limit=-1&facet.field=phenotyping_center",sep="")
     json_data <- fromJSON(paste(readLines(json_file), collapse=""))
     centers <- unlist(json_data$facet_counts$facet_fields$phenotyping_center)
@@ -102,7 +104,7 @@ getPipelines <- function(PhenCenterName=NULL,excludeLegacyPipelines=TRUE)
 
     legacy_pipelines <- c("M-G-P_001","ESLIM_001","ESLIM_002","ESLIM_003","GMC_001")
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
             PhenCenterName,"&rows=0&wt=json&facet=true&facet.mincount=1&facet.limit=-1&"
             ,"facet.field=pipeline_stable_id",sep=""))
     #print(json_file)
@@ -147,7 +149,7 @@ getProcedures <- function(PhenCenterName=NULL, PipelineID=NULL)
 
     }
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                     PhenCenterName," AND pipeline_stable_id:",
                     PipelineID,"&rows=0&wt=json&facet=true&facet.mincount=1&facet.limit=-1&"
                     ,"facet.field=procedure_stable_id",sep=""))
@@ -185,7 +187,7 @@ getParameters <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL
 
     }
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                     PhenCenterName," AND pipeline_stable_id:",
                     PipelineID," AND procedure_stable_id:",
                     ProcedureID,"&rows=0&wt=json&facet=true&facet.mincount=1&facet.limit=-1&"
@@ -225,7 +227,7 @@ getStrains <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL, P
     }
 
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                     PhenCenterName," AND pipeline_stable_id:",
                     PipelineID," AND procedure_stable_id:",
                     ProcedureID," AND parameter_stable_id:",
@@ -268,7 +270,7 @@ getGenes <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL, Par
 
     if (is.null(StrainID)){
 
-        json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+        json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                         PhenCenterName," AND pipeline_stable_id:",
                         PipelineID," AND procedure_stable_id:",
                         ProcedureID," AND parameter_stable_id:",
@@ -276,7 +278,7 @@ getGenes <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL, Par
                         ,"facet.field=gene_accession_id",sep=""))
     } else {
         StrainID <- gsub(":","\\\\:",StrainID)
-        json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+        json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                         PhenCenterName," AND pipeline_stable_id:",
                         PipelineID," AND procedure_stable_id:",
                         ProcedureID," AND parameter_stable_id:",
@@ -326,7 +328,7 @@ getAlleles <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL, P
     }
 
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                     PhenCenterName," AND pipeline_stable_id:",
                     PipelineID," AND procedure_stable_id:",
                     ProcedureID," AND parameter_stable_id:",
@@ -383,7 +385,7 @@ getZygosities <- function(PhenCenterName=NULL, PipelineID=NULL, ProcedureID=NULL
         add_this <- paste(add_this," AND allele_accession_id:", AlleleID, sep="")
     }
 
-    json_file <- URLencode(paste("http://www.ebi.ac.uk/mi/impc/solr/experiment/select?q=phenotyping_center:",
+    json_file <- URLencode(paste(IMPC_BASE_ENDPOINT,"experiment/select?q=phenotyping_center:",
                     PhenCenterName," AND pipeline_stable_id:",
                     PipelineID," AND procedure_stable_id:",
                     ProcedureID," AND parameter_stable_id:",
